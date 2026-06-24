@@ -98,6 +98,7 @@ python compute_deposits.py <xlsx文件路径>
 
 - **单个 Fiducial Point List**：每个 traj 只创建 1 个 `vtkMRMLMarkupsFiducialNode`，所有 deposit 点通过 `AddFiducial()` + `SetNthFiducialLabel()` 添加
 - **Glyph 类型**：`StarBurst`（`slicer.vtkMRMLMarkupsDisplayNode.StarBurst`）
+- **Glyph 尺寸**：绝对 3 mm（`UseGlyphScaleOff()` + `SetGlyphSize(3.0)`）
 - **Text Scale**：`0.0`（不显示文字标签）
 - **颜色**：traj1 红 `[1.0, 0.0, 0.0]`，traj2 绿 `[0.0, 1.0, 0.0]`，traj3 蓝 `[0.0, 0.0, 1.0]`
 - **锁定**：`fid.SetLocked(True)`
@@ -129,10 +130,14 @@ for i, (label, r, a, s) in enumerate(deposits):
     except Exception as ex:
         print(f"FAIL d{i+1}: {ex}")
 
+color = [1.0, 0.0, 0.0]  # traj1=红, traj2=绿[0,1,0], traj3=蓝[0,0,1]
+
 disp = fid.GetDisplayNode()
-disp.SetColor([1.0, 0.0, 0.0])           # 按 traj 编号: 红/绿/蓝
+disp.SetColor(color)                        # 按 traj 编号: 红/绿/蓝
 disp.SetSelectedColor([min(x + 0.3, 1.0) for x in color])
 disp.SetGlyphType(slicer.vtkMRMLMarkupsDisplayNode.StarBurst)
+disp.UseGlyphScaleOff()
+disp.SetGlyphSize(3.0)
 disp.SetTextScale(0.0)
 fid.SetLocked(True)
 ```
