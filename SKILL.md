@@ -1,6 +1,6 @@
 ---
-title: "IMI_transform_diy"
-summary: "立体定向手术坐标变换工具，计算导针deposit的RAS三维坐标并生成3D Slicer可视化代码"
+name: IMI_transform_diy
+description: 立体定向手术坐标变换工具，计算导针deposit的RAS三维坐标并生成3D Slicer可视化代码
 read_when:
   - 用户需要计算导针deposit的RAS坐标
   - 处理包含traj/deposits sheet的Excel文件进行坐标回填
